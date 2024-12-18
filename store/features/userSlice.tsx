@@ -1,19 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface UserProfile {
-  id: number | null;
-  username: string | null;
-  email: string | null;
-  bio: string | null;
-  profile_picture: string | null;
-}
+import { UserProfile } from "@/types/types";
 
 interface ProfileState {
-  userProfile: UserProfile | null;
+  userProfile: UserProfile;
 }
 
 const initialState: ProfileState = {
-  userProfile: null,
+  userProfile: {
+    id: 1,
+    username: "",
+    email: "",
+    bio: "",
+    profilePicture: "",
+  },
 };
 
 const userSlice = createSlice({
@@ -24,7 +23,7 @@ const userSlice = createSlice({
       state.userProfile = action.payload;
     },
     updateUserProfile(state, action: PayloadAction<Partial<UserProfile>>) {
-      return { ...state, ...action.payload };
+      state.userProfile = { ...state.userProfile, ...action.payload };
     },
   },
 });

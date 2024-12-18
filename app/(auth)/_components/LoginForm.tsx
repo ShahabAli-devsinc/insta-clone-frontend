@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/features/authSlice";
 import { useRouter } from "next/navigation";
 import { apiLogin } from "../../../utils/api";
-import { User } from "@/types/types";
+import { User, UserProfile } from "@/types/types";
 import Link from "next/link";
 import Button from "@/components/shared/Button";
 import InputField from "@/components/shared/InputField";
@@ -32,7 +32,7 @@ const LoginForm = () => {
         username: response.user.username,
         email: response.user.email,
         bio: response.user.bio,
-        profile_picture: response.user.profile_picture,
+        profilePicture: response.user.profilePicture,
       };
 
       dispatch(setUser(user));
