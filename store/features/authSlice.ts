@@ -7,7 +7,13 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: null,
+  user: {
+    id: 1,
+    username: "",
+    email: "",
+    bio: "",
+    profilePicture: "",
+  },
   loading: false,
   error: null,
 };

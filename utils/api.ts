@@ -39,3 +39,21 @@ export const apiRegister = async (data: {
     throw new Error("Registration failed, please try again");
   }
 };
+
+export const apiUpdateProfile = async (updateData: {
+  username?: string;
+  bio?: string;
+  profilePicture?: string;
+}) => {
+  try {
+    const response = await axios.patch(`${API_URL}/users/update`, updateData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
+    return response.data;
+  } catch (error) {
+    throw new Error("Failed to update profile, please try again");
+  }
+};
