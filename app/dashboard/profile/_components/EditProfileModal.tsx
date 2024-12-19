@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import ProfileImageUploader from "./ProfileImageUploader";
-import { EDIT_PROFILE_MODAL_ID, MAX_BIO_LENGTH } from "@/constants/constants";
+import { MAX_BIO_LENGTH } from "@/constants/constants";
 import { UserProfile } from "@/types/types";
 import { useDispatch } from "react-redux";
 import { updateUserProfile } from "@/store/features/userSlice";
-import { apiUpdateProfile } from "@/utils/api";
+import { apiUpdateProfile } from "@/services/userApi";
+import { toast } from "sonner";
+
 interface EditProfileModalProps {
   isOpen: boolean;
   userProfile: UserProfile;
@@ -26,8 +28,25 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   const [newBio, setNewBio] = useState<string>(bio || "");
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+
+  const validateUsername = useCallback((username: string) => {
+    if (username.length < 5) {
+      setUsernameError("Username must be at least 5 characters long.");
+      return false;
+    } else if (username.length > 20) {
+      setUsernameError("Username cannot exceed 20 characters.");
+      return false;
+    }
+    setUsernameError(null);
+    return true;
+  }, []);
 
   const handleSave = async () => {
+    if (!validateUsername(newUsername)) {
+      return;
+    }
+
     setIsSaving(true);
     setError(null);
     try {
@@ -42,11 +61,11 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
       if (newProfileImageUrl !== userProfile.profilePicture) {
         updateData.profilePicture = newProfileImageUrl;
       }
-      const updatedUser = await apiUpdateProfile({
+      await apiUpdateProfile({
         ...updateData,
       });
 
-      await dispatch(
+      dispatch(
         updateUserProfile({
           username: newUsername,
           bio: newBio,
@@ -55,9 +74,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
       );
 
       onClose();
+      toast("Profile updated successfully!");
     } catch (err: any) {
       console.error("Update profile error:", err);
-      setError("Failed to update profile. Please try again.");
+      toast("Failed to update profile. Please try again.");
     } finally {
       setIsSaving(false);
     }
@@ -81,9 +101,15 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
             <input
               type="text"
               value={newUsername}
-              onChange={(e) => setNewUsername(e.target.value)}
+              onChange={(e) => {
+                setNewUsername(e.target.value);
+                validateUsername(e.target.value);
+              }}
               className="mt-1 block w-full border border-gray-300 rounded-md p-2"
             />
+            {usernameError && (
+              <p className="text-red-500 text-sm mt-1">{usernameError}</p>
+            )}
           </div>
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-700">
@@ -123,9 +149,9 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           <button
             onClick={handleSave}
             className={`px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 ${
-              isSaving ? "opacity-50 cursor-not-allowed" : ""
+              isSaving || usernameError ? "opacity-50 cursor-not-allowed" : ""
             }`}
-            disabled={isSaving}
+            disabled={isSaving || usernameError !== null}
           >
             {isSaving ? "Saving..." : "Update"}
           </button>
