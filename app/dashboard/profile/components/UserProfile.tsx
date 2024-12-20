@@ -1,13 +1,14 @@
 "use client";
 import React from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
 import UserInfo from "./UserInfo";
 import Separator from "@/components/shared/Separator";
 import Loader from "@/components/shared/Loader";
+import { selectUserProfile } from "@/store/selector";
+import UserPosts from "./UserPosts";
 
 const UserProfile: React.FC = () => {
-  const userProfile = useSelector((state: RootState) => state.user.userProfile);
+  const userProfile = useSelector(selectUserProfile);
 
   if (userProfile.username === "") {
     return <Loader />;
@@ -19,7 +20,7 @@ const UserProfile: React.FC = () => {
       {/* Separator */}
       <Separator />
       {/* User Posts */}
-      {/* <UserPosts /> */}
+      <UserPosts />
     </div>
   );
 };

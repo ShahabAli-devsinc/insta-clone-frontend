@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setUser } from "../../../store/features/authSlice";
 import { setUserProfile } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
-import { apiLogin } from "@/services/authApi";
+import { AuthApi } from "@/services/authApi";
 import { User } from "@/types/types";
 import Link from "next/link";
 import Button from "@/components/shared/Button";
@@ -12,6 +12,7 @@ import InputField from "@/components/shared/InputField";
 import { toast } from "sonner";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { LoginValidationSchema } from "../login/ValidationSchema/LoginValidationSchema";
 
 interface FormValues {
   username: string;
@@ -23,17 +24,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  // validation schema using Yup
-  const validationSchema = Yup.object({
-    username: Yup.string()
-      .min(3, "Username must be at least 3 characters")
-      .max(20, "Username must be at most 20 characters")
-      .required("Username is required"),
-    password: Yup.string()
-      .min(6, "Password must be at least 6 characters")
-      .required("Password is required"),
-    general: Yup.string(),
-  });
+  const validationSchema = LoginValidationSchema;
 
   // Initialize Formik
   const formik = useFormik<FormValues>({
@@ -45,7 +36,7 @@ const LoginForm = () => {
     validationSchema,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       try {
-        const response = await apiLogin({
+        const response = await AuthApi.login({
           username: values.username,
           password: values.password,
         });
@@ -63,11 +54,7 @@ const LoginForm = () => {
         router.push("/dashboard");
       } catch (error: any) {
         // Handle specific error messages from the API if available
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
+        if (error.response?.data?.message) {
           setErrors({ general: error.response.data.message });
         } else {
           setErrors({

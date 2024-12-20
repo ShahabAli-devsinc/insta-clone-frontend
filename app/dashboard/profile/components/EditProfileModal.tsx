@@ -4,7 +4,7 @@ import { MAX_BIO_LENGTH } from "@/constants/constants";
 import { UserProfile } from "@/types/types";
 import { useDispatch } from "react-redux";
 import { updateUserProfile } from "@/store/features/userSlice";
-import { apiUpdateProfile } from "@/services/userApi";
+import { UserApi } from "@/services/userApi";
 import { toast } from "sonner";
 
 interface EditProfileModalProps {
@@ -61,7 +61,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
       if (newProfileImageUrl !== userProfile.profilePicture) {
         updateData.profilePicture = newProfileImageUrl;
       }
-      await apiUpdateProfile({
+      await UserApi.updateProfile({
         ...updateData,
       });
 

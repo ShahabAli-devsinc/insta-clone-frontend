@@ -2,13 +2,13 @@
 
 import { useState } from "react";
 import { useFormik } from "formik";
-import { apiRegister } from "@/services/authApi";
+import { AuthApi } from "@/services/authApi";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Button from "@/components/shared/Button";
 import InputField from "@/components/shared/InputField";
 import { toast } from "sonner";
-import { RegistrationValidationSchema } from "@/validationSchemas/RegisterationValidationScheme";
+import { RegistrationValidationSchema } from "@/app/(auth)/register/ValidationSchema/RegisterationValidationScheme";
 
 interface FormValues {
   username: string;
@@ -37,7 +37,7 @@ const RegisterForm = () => {
     onSubmit: async (values, { setSubmitting, setErrors }) => {
       setLoading(true);
       try {
-        await apiRegister({
+        await AuthApi.register({
           username: values.username,
           email: values.email,
           password: values.password,
@@ -45,11 +45,7 @@ const RegisterForm = () => {
         toast("Registration Successful!");
         router.push("/login");
       } catch (error: any) {
-        if (
-          error.response &&
-          error.response.data &&
-          error.response.data.message
-        ) {
+        if (error.response?.data?.message) {
           setErrors({ general: error.response.data.message });
         } else {
           setErrors({ general: "Registration failed. Please try again." });
