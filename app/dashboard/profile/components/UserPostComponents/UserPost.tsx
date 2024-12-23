@@ -27,8 +27,6 @@ const UserPost = ({ post }: UserPostProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
-    console.log("Open Modal");
-
     setIsModalOpen(true);
   };
 
@@ -40,7 +38,6 @@ const UserPost = ({ post }: UserPostProps) => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     try {
-      console.log("Deleted Post");
       await PostApi.delete(post.id);
       dispatch(deletePost(post.id));
       toast("Post deleted successfully!");
@@ -93,11 +90,11 @@ const UserPost = ({ post }: UserPostProps) => {
         <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 text-white text-lg ">
           <div className="flex items-center gap-2">
             <FaHeart className="text-white" />
-            <p>5</p>
+            <p>{post.likes?.length}</p>
           </div>
           <div className="flex items-center gap-2">
             <FaComment className="text-white" />
-            <p>10</p>
+            <p>{post.comments?.length}</p>
           </div>
         </div>
       </div>

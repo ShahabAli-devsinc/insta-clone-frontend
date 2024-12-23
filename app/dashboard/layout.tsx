@@ -17,8 +17,8 @@ export default function DashboardLayout({
     <>
       <SidebarProvider>
         <AppSidebar />
-        <main className="w-full">
-          <SidebarTrigger />
+        <main className="w-full relative bg-gray-50">
+          <SidebarTrigger className="absolute hover:scale-110 duration-300 transition-transform ease-in-out" />
           {children}
         </main>
         <Toaster />

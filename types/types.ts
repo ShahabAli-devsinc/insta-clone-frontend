@@ -25,10 +25,27 @@ export interface Post {
   id: number;
   userId: number;
   imageUrl: string;
-  likes?: number;
-  comments?: number;
+  likes?: Like[];
+  comments?: Comment[];
   createdAt?: Date;
   updatedAt?: Date;
   caption: string;
   user: User;
+}
+
+export interface Like {
+  id: number;
+  postId: number;
+  userId: number;
+  user: User;
+  createdAt: Date;
+}
+
+export interface Comment {
+  id: number;
+  postId: number;
+  userId: number;
+  user: User;
+  comment: string;
+  createdAt: Date;
 }

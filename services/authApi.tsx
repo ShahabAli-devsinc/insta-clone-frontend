@@ -22,4 +22,13 @@ export const AuthApi = {
       throw new Error("Registration failed, please try again");
     }
   },
+
+  logout: async () => {
+    try {
+      const response = await axiosInstance.post("/auth/logout");
+      return response.data;
+    } catch (error) {
+      throw new Error("Failed to logout.");
+    }
+  },
 };

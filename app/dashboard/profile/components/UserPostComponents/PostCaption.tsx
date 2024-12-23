@@ -1,3 +1,4 @@
+"use client";
 import { CheckIcon, EditIcon, X } from "lucide-react";
 import React, { useRef, useState } from "react";
 import {
@@ -19,9 +20,10 @@ type PostCaptionProps = {
   postId: number;
   username: string;
   caption: string;
+  feed?: boolean;
 };
 
-const PostCaption = ({ postId, username, caption }: PostCaptionProps) => {
+const PostCaption = ({ postId, username, caption, feed }: PostCaptionProps) => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [postCaption, setPostCaption] = useState<string>(
@@ -147,7 +149,7 @@ const PostCaption = ({ postId, username, caption }: PostCaptionProps) => {
           />
         )}
       </div>
-      <DisplayEditingFlowContent />
+      {feed ? null : <DisplayEditingFlowContent />}
     </div>
   );
 };
