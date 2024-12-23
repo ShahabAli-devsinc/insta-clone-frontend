@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import authReducer from "./features/authSlice";
 import userReducer from "./features/userSlice";
-
+import postReducer from "./features/postSlice";
 // Persist config for auth slice
 const authPersistConfig = {
   key: "auth",
@@ -23,12 +23,13 @@ export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
     user: persistedUserReducer,
+    post: postReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ["persist/PERSIST"], // Ignore specific action types
-        ignoredPaths: ["register"], // Ignore specific paths in state
+        ignoredActions: ["persist/PERSIST"],
+        ignoredPaths: ["register"],
       },
     }),
 });
