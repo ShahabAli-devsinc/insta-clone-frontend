@@ -29,34 +29,17 @@ const Post = () => {
     actions: { resetForm: () => void }
   ) => {
     setIsSubmitting(true);
-    const formData = new FormData();
-    if (values.imageUrl) formData.append("file", values.imageUrl);
-
+    const postData = new FormData();
+    if (values.imageUrl) postData.append("file", values.imageUrl);
+    if (values.caption) postData.append("caption", values.caption);
     try {
-      const response = await fetch("/api/cloudinary-uploads", {
-        method: "POST",
-        body: formData,
-      });
-
-      const data = await response.json();
-
-      if (data.message === "success") {
-        try {
-          const postData = { caption: values.caption, imageUrl: data.imgUrl };
-          await PostApi.create({ ...postData });
-          console.log("Post data:", postData);
-          toast("Post created successfully!");
-          actions.resetForm();
-          setPreview(null);
-          setStep(1);
-        } catch (error) {
-          toast("Error occurred while creating post");
-        }
-      } else {
-        console.error("Upload failed:", data.error);
-      }
+      await PostApi.create(postData);
+      toast("Post created successfully!");
+      actions.resetForm();
+      setPreview(null);
+      setStep(1);
     } catch (error) {
-      console.error("Error uploading image:", error);
+      toast("Failed to create post.");
     } finally {
       setIsSubmitting(false);
     }
@@ -65,7 +48,7 @@ const Post = () => {
   // Updated renderStep with specific types and reordered steps
   const renderStep = (
     step: number,
-    setFieldValue: (field: string, value: any) => void,
+    setFieldValue: (field: string, value: string | File | null) => void,
     values: PostFormValues,
     setPreview: (value: string | null) => void
   ) => {
@@ -111,13 +94,13 @@ const Post = () => {
               Review Your Post
             </h3>
             <div className="flex flex-col items-center">
-              {preview && (
+              {preview ? (
                 <img
                   src={preview}
                   alt="Preview"
                   className="rounded-lg object-cover h-64 w-full max-w-md shadow-md mb-4"
                 />
-              )}
+              ) : null}
               <div className="w-full max-w-md bg-white p-4 rounded-lg shadow">
                 <h4 className="text-xl font-medium text-gray-800 mb-2">
                   Caption
@@ -150,7 +133,7 @@ const Post = () => {
             isValid,
             dirty,
           }: {
-            setFieldValue: (field: string, value: any) => void;
+            setFieldValue: (field: string, value: string | File | null) => void;
             values: PostFormValues;
             resetForm: () => void;
             isValid: boolean;
@@ -181,7 +164,7 @@ const Post = () => {
               {renderStep(step, setFieldValue, values, setPreview)}
 
               {/* Navigation Buttons */}
-              <div className="flex justify-between">
+              <div className="flex justify-between gap-2">
                 {step > 1 && (
                   <button
                     type="button"

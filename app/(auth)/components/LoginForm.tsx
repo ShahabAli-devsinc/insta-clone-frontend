@@ -51,7 +51,7 @@ const LoginForm = () => {
         dispatch(setUser(user));
         dispatch(setUserProfile(user));
         toast("Logged in successfully!");
-        router.push("/dashboard");
+        router.push("/home");
       } catch (error: any) {
         // Handle specific error messages from the API if available
         if (error.response?.data?.message) {

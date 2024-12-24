@@ -5,7 +5,7 @@ import React from "react";
 
 type PostProfileProps = {
   user: User;
-  onClose: () => void;
+  onClose?: () => void;
 };
 
 const PostUserProfile = ({ user, onClose }: PostProfileProps) => {
@@ -14,7 +14,7 @@ const PostUserProfile = ({ user, onClose }: PostProfileProps) => {
       <div className="flex gap-2 items-center">
         <Image
           src={
-            user.profilePicture && user.profilePicture.trim() !== ""
+            user.profilePicture?.trim() !== ""
               ? user.profilePicture
               : "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png"
           }
@@ -25,7 +25,9 @@ const PostUserProfile = ({ user, onClose }: PostProfileProps) => {
         />
         <span className="font-semibold">{user.username}</span>
       </div>
-      <X onClick={onClose} className="cursor-pointer hover:text-red-900" />
+      {onClose ? (
+        <X onClick={onClose} className="cursor-pointer hover:text-red-900" />
+      ) : null}
     </div>
   );
 };

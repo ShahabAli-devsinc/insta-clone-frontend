@@ -20,9 +20,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 }) => {
   const dispatch = useDispatch();
   const { username, email, profilePicture, bio } = userProfile;
-
-  const [newProfileImageUrl, setNewProfileImageUrl] = useState<string>(
-    profilePicture || ""
+  const [newProfileImageFile, setNewProfileImageFile] = useState<File | null>(
+    null
   );
   const [newUsername, setNewUsername] = useState<string>(username || "");
   const [newBio, setNewBio] = useState<string>(bio || "");
@@ -46,30 +45,26 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
     if (!validateUsername(newUsername)) {
       return;
     }
-
     setIsSaving(true);
     setError(null);
     try {
-      const updateData: Partial<UserProfile> = {};
-
+      const updateData: FormData = new FormData();
       if (newUsername !== userProfile.username) {
-        updateData.username = newUsername;
+        updateData.append("username", newUsername);
       }
       if (newBio !== userProfile.bio) {
-        updateData.bio = newBio;
+        updateData.append("bio", newBio);
       }
-      if (newProfileImageUrl !== userProfile.profilePicture) {
-        updateData.profilePicture = newProfileImageUrl;
+      if (newProfileImageFile) {
+        updateData.append("file", newProfileImageFile);
       }
-      await UserApi.updateProfile({
-        ...updateData,
-      });
+      const updatedProfile = await UserApi.updateProfile(updateData);
 
       dispatch(
         updateUserProfile({
           username: newUsername,
           bio: newBio,
-          profilePicture: newProfileImageUrl,
+          profilePicture: updatedProfile.profilePicture,
         })
       );
 
@@ -92,11 +87,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
         <div className="flex flex-col items-center space-y-4">
           <ProfileImageUploader
             currentImage={profilePicture}
-            onImageChange={setNewProfileImageUrl}
+            onImageChange={setNewProfileImageFile}
           />
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-700">
-              Username
+              {" "}
+              Username{" "}
             </label>
             <input
               type="text"
@@ -113,7 +109,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-700">
-              Email
+              {" "}
+              Email{" "}
             </label>
             <input
               type="email"
@@ -124,7 +121,8 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
           </div>
           <div className="w-full">
             <label className="block text-sm font-medium text-gray-700">
-              Bio
+              {" "}
+              Bio{" "}
             </label>
             <textarea
               value={newBio}

@@ -1,9 +1,13 @@
 import axiosInstance from "@/config/baseAxios";
 
 export const PostApi = {
-  create: async (postData: { imageUrl: string; caption: string }) => {
+  create: async (postData: FormData) => {
     try {
-      const response = await axiosInstance.post("/posts", postData);
+      const response = await axiosInstance.post("/posts", postData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return response.data;
     } catch (error) {
       throw new Error("Error occurred while creating post.");

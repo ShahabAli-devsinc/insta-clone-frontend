@@ -5,12 +5,12 @@ export async function middleware(req: any) {
   const token = req.cookies.get("access_token")?.value || "";
 
   const publicPaths = ["/login", "/register"];
-  const protectedPaths = ["/dashboard"];
+  const protectedPaths = ["/home", "/post", "/explore"]; // Adjusted paths
 
   if (token) {
     // If logged in, prevent access to the login and register pages
     if (publicPaths.includes(pathname) || pathname === "/") {
-      return NextResponse.redirect(new URL("/dashboard", req.url));
+      return NextResponse.redirect(new URL("/home", req.url));
     }
   } else {
     // If not logged in, restrict access to protected pages
@@ -23,5 +23,14 @@ export async function middleware(req: any) {
 
 // Define the routes where this middleware should be applied
 export const config = {
-  matcher: ["/login", "/register", "/", "/dashboard/:path*"],
+  matcher: [
+    "/login",
+    "/register",
+    "/",
+    "/home",
+    "/post",
+    "/explore",
+    "/profile",
+    "/dashboard/:path*",
+  ],
 };
