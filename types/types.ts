@@ -8,6 +8,19 @@ export interface User {
   updatedAt?: string;
 }
 
+export interface UserPopulated {
+  id: number;
+  username: string;
+  email: string;
+  bio: string;
+  profilePicture: string;
+  createdAt?: string;
+  updatedAt?: string;
+  posts: Post[];
+  followers: User[];
+  following: User[];
+}
+
 export interface UserProfile {
   id: number;
   username: string;
@@ -46,6 +59,6 @@ export interface Comment {
   postId: number;
   userId: number;
   user: User;
-  comment: string;
+  content: string;
   createdAt: Date;
 }

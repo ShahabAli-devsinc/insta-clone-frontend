@@ -63,11 +63,11 @@ const RegisterForm = () => {
       <h2 className="text-3xl font-semibold text-center text-gray-700 mb-6">
         Create an Account
       </h2>
-      {formik.errors.general && (
+      {formik.errors.general ? (
         <div className="text-red-500 text-center mb-4">
           {formik.errors.general}
         </div>
-      )}
+      ) : null}
       <form onSubmit={formik.handleSubmit}>
         <InputField
           id="username"

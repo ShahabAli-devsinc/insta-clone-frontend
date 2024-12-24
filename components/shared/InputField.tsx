@@ -41,7 +41,7 @@ const InputField: React.FC<InputFieldProps> = ({
         } rounded-lg focus:ring-2 focus:ring-blue-400 focus:outline-none`}
         required
       />
-      {error && <p className="text-red-500 text-sm mt-1">{error}</p>}{" "}
+      {error ? <p className="text-red-500 text-sm mt-1">{error}</p> : null}
     </div>
   );
 };

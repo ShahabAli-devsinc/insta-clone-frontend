@@ -5,17 +5,17 @@ export const commentApi = {
   create: async ({
     postId,
     userId,
-    comment,
+    content,
   }: {
     postId: number;
     userId: number;
-    comment: string;
+    content: string;
   }): Promise<Comment> => {
     try {
       const response = await axiosInstance.post("/comments", {
         postId,
         userId,
-        comment,
+        content,
       });
       return response.data;
     } catch (error) {

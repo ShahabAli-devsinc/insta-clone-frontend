@@ -27,9 +27,9 @@ const Button: React.FC<ButtonProps> = ({
       aria-disabled={loading}
       {...props}
     >
-      {loading && (
+      {loading ? (
         <FaSpinner className="animate-spin text-white" aria-hidden="true" />
-      )}
+      ) : null}
       <span>{children}</span>
     </button>
   );
