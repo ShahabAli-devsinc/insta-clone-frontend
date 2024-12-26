@@ -36,7 +36,7 @@ const ExplorePosts = ({ onFetchMore }: ExplorePostsProps) => {
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full p-4 min-h-screen">
       {loading ? (
         <Loader />
       ) : explorePosts.length === 0 ? (
@@ -80,7 +80,7 @@ const ExplorePosts = ({ onFetchMore }: ExplorePostsProps) => {
             >
               <motion.button
                 onClick={handleLoadMore}
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg"
+                className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"
                 whileHover={{
                   scale: 1.1,
                   backgroundColor: "#3b82f6",

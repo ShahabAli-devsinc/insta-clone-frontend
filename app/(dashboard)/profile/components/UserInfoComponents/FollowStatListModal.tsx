@@ -25,7 +25,7 @@ const FollowStatListModal = ({
           <h2 className="text-xl font-semibold mb-2">{stat}</h2>
         </div>
         {followData.map((item) => (
-          <div className="mb-2">
+          <div className="mb-2" key={item.id}>
             <FollowStatUserCard user={item} stat={stat} />
           </div>
         ))}
