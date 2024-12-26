@@ -9,6 +9,7 @@ import {
   setPostsPagination,
   setUsersPagination,
   setLoading,
+  addExplorePosts,
 } from "@/store/features/exploreSlice";
 import { exploreApi } from "@/services/exploreApi";
 import { useEffect, useState } from "react";
@@ -71,7 +72,9 @@ const ExploreMain = () => {
           10,
           debouncedSearchQuery
         );
-        dispatch(setExplorePosts(posts || []));
+
+        dispatch(addExplorePosts(posts));
+
         dispatch(
           setPostsPagination({
             currentPage: nextPage,

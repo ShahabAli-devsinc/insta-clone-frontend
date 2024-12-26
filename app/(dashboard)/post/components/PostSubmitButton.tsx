@@ -11,7 +11,7 @@ const PostSubmitButton: React.FC<PostSubmitButtonProps> = ({
 }) => (
   <button
     type="submit"
-    className={`w-full py-3 px-6 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition flex items-center justify-center ${
+    className={`w-[30%] py-3 px-6 bg-gradient-to-r from-blue-500 to-blue-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-blue-700 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-1 focus:ring-blue-600 transition flex items-center justify-center ${
       isLoading ? "opacity-50 cursor-not-allowed" : ""
     }`}
     disabled={isLoading}

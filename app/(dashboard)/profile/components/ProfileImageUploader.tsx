@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React, { useRef, useState } from "react";
 
 interface ProfileImageUploaderProps {
@@ -16,7 +17,7 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
     const file = event.target.files?.[0];
     if (file) {
       setPreview(URL.createObjectURL(file));
-      onImageChange(file); // Pass the file back to EditProfileModal
+      onImageChange(file);
     }
   };
 
@@ -30,9 +31,11 @@ const ProfileImageUploader: React.FC<ProfileImageUploaderProps> = ({
 
   return (
     <div className="flex flex-col items-center">
-      <img
+      <Image
         src={preview}
         alt="Profile Preview"
+        width={100}
+        height={100}
         className="w-24 h-24 rounded-full object-cover mb-2"
       />
       <input

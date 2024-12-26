@@ -11,7 +11,6 @@ import Button from "@/components/shared/Button";
 import InputField from "@/components/shared/InputField";
 import { toast } from "sonner";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 import { LoginValidationSchema } from "../login/ValidationSchema/LoginValidationSchema";
 
 interface FormValues {
@@ -50,7 +49,7 @@ const LoginForm = () => {
 
         dispatch(setUser(user));
         dispatch(setUserProfile(user));
-        toast("Logged in successfully!");
+        toast.success("Logged in successfully!");
         router.push("/home");
       } catch (error: any) {
         // Handle specific error messages from the API if available
@@ -61,7 +60,7 @@ const LoginForm = () => {
             general: "Login failed. Please check your credentials.",
           });
         }
-        toast("Login failed. Please check your credentials.");
+        toast.warning("Login failed. Please check your credentials.");
       } finally {
         setSubmitting(false);
       }

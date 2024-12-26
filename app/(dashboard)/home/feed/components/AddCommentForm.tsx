@@ -54,9 +54,9 @@ const AddCommentForm = ({ isProfile, postId, isExplore }: AddCommentProps) => {
       };
       dispatch(action(actionPayload));
       setComment("");
-      toast("Comment posted successfully!");
+      toast.success("Comment posted successfully!");
     } catch (error) {
-      toast("Failed to uploaded comment, Try Again!");
+      toast.warning("Failed to uploaded comment, Try Again!");
     }
   };
 

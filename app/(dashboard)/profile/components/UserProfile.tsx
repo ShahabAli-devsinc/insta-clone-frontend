@@ -18,9 +18,6 @@ const UserProfile = ({ userProfile }: UserProfileProps) => {
   return (
     <div className="w-full mx-auto p-4">
       <UserInfo userProfile={userProfile} />
-      {/* Separator */}
-      <Separator />
-      {/* User Posts */}
       <UserPosts />
     </div>
   );

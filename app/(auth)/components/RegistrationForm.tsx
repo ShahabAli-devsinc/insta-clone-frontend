@@ -42,15 +42,12 @@ const RegisterForm = () => {
           email: values.email,
           password: values.password,
         });
-        toast("Registration Successful!");
+        toast.success("Registration Successful!");
         router.push("/login");
       } catch (error: any) {
-        if (error.response?.data?.message) {
-          setErrors({ general: error.response.data.message });
-        } else {
-          setErrors({ general: "Registration failed. Please try again." });
-        }
-        toast("Registration failed. Please try again.");
+        const errorMessage =
+          error?.message || "Registration failed. Please try again.";
+        toast.warning(errorMessage);
       } finally {
         setLoading(false);
         setSubmitting(false);
