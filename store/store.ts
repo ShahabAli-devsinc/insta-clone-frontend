@@ -5,6 +5,9 @@ import authReducer from "./features/authSlice";
 import userReducer from "./features/userSlice";
 import postReducer from "./features/postSlice";
 import feedReducer from "./features/feedSlice";
+import exploreReducer from "./features/exploreSlice";
+import followReducer from "./features/followSlice";
+
 // Persist config for auth slice
 const authPersistConfig = {
   key: "auth",
@@ -26,6 +29,8 @@ export const store = configureStore({
     user: persistedUserReducer,
     post: postReducer,
     feed: feedReducer,
+    explore: exploreReducer,
+    follow: followReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -35,6 +40,8 @@ export const store = configureStore({
       },
     }),
 });
+
 export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
 export const persistor = persistStore(store);
