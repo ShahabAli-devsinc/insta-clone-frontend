@@ -52,7 +52,6 @@ const LoginForm = () => {
         toast.success("Logged in successfully!");
         router.push("/home");
       } catch (error: any) {
-        // Handle specific error messages from the API if available
         if (error.response?.data?.message) {
           setErrors({ general: error.response.data.message });
         } else {

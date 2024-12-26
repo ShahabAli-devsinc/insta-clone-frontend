@@ -30,9 +30,6 @@ const LikeCommentBox = ({
   const currentUser = useSelector(selectUserProfile);
   const [liked, setLiked] = useState<boolean>(false);
   const [likesCount, setLikesCount] = useState<number>(likes.length || 0);
-
-  console.log(likes.length);
-
   const isLiked = useMemo(() => {
     return likes.some((like) => like.userId === currentUser.id);
   }, [likes]);
