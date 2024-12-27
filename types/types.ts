@@ -62,3 +62,9 @@ export interface Comment {
   content: string;
   createdAt: Date;
 }
+
+export enum UserStat {
+  POST = "Posts",
+  FOLLOWING = "Following",
+  FOLLOWERS = "Followers",
+}

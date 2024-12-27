@@ -14,9 +14,11 @@ export const PostApi = {
     }
   },
 
-  fetchAll: async () => {
+  fetchAll: async (offset: number, limit: number) => {
     try {
-      const response = await axiosInstance.get("/posts/user-posts");
+      const response = await axiosInstance.get(
+        `/posts/user-posts?offset=${offset}&limit=${limit}`
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error occurred while fetching posts.");

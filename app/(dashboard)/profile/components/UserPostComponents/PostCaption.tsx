@@ -61,12 +61,12 @@ const PostCaption = ({
         const updatedPostPayload = { caption: postCaption };
         await PostApi.update(postId, updatedPostPayload);
         dispatch(updatePost({ id: postId, data: updatedPostPayload }));
-        toast("Post updated successfully!");
+        toast.success("Post updated successfully!");
         setIsUpdating(false);
         setIsEditing(false);
       }
     } catch (error) {
-      toast("Failed to update post.");
+      toast.warning("Failed to update post.");
     }
   };
 
@@ -143,9 +143,9 @@ const PostCaption = ({
   return (
     <div className="flex my-2 justify-between items-start">
       <div className="w-full flex gap-1 items-start pr-2">
-        <p className="font-semibold whitespace-nowrap">{username}:</p>
+        <p className="font-semibold text-sm whitespace-nowrap">{username}:</p>
         {!isEditing ? (
-          <p className="flex-1 break-words text-wrap w-[30px]">{caption}</p>
+          <p className="flex-1 break-words text-sm text-wrap w-[30px] text-gray-600">{caption}</p>
         ) : (
           <input
             ref={inputRef}

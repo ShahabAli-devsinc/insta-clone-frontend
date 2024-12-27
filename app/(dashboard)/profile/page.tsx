@@ -1,9 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import UserProfile from "./components/UserProfile";
-import { PostApi } from "@/services/postApi";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserPosts } from "@/store/features/postSlice";
 import { followApi } from "@/services/followApi";
 import {
   setError,
@@ -36,12 +34,6 @@ const ProfilePage = () => {
   const userProfile = useSelector(selectUserProfile);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const posts = await PostApi.fetchAll();
-      dispatch(setUserPosts(posts));
-    };
-
-    fetchPosts();
     if (userProfile?.id) {
       fetchFollowData(userProfile.id, dispatch);
     }

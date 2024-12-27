@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import ProfileImageUploader from "./ProfileImageUploader";
-import { MAX_BIO_LENGTH } from "@/constants/constants";
+import { DEFAULT_PROFILE_PIC, MAX_BIO_LENGTH } from "@/constants/constants";
 import { UserProfile } from "@/types/types";
 import { useDispatch } from "react-redux";
 import { updateUserProfile } from "@/store/features/userSlice";
@@ -69,10 +69,10 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
       );
 
       onClose();
-      toast("Profile updated successfully!");
+      toast.success("Profile updated successfully!");
     } catch (err: any) {
       console.error("Update profile error:", err);
-      toast("Failed to update profile. Please try again.");
+      toast.warning("Failed to update profile. Please try again.");
     } finally {
       setIsSaving(false);
     }
@@ -86,7 +86,7 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
         <h2 className="text-xl font-semibold mb-4">Edit Profile</h2>
         <div className="flex flex-col items-center space-y-4">
           <ProfileImageUploader
-            currentImage={profilePicture}
+            currentImage={profilePicture || DEFAULT_PROFILE_PIC}
             onImageChange={setNewProfileImageFile}
           />
           <div className="w-full">

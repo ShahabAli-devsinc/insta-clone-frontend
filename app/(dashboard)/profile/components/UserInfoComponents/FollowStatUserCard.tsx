@@ -1,14 +1,15 @@
 import Avatar from "@/components/shared/Avatar";
 import FollowButton from "@/components/shared/FollowButton";
 import { DEFAULT_PROFILE_PIC } from "@/constants/constants";
-import { User } from "@/types/types";
+import { User, UserStat } from "@/types/types";
 import React from "react";
 
-type UserSuggestionCardProps = {
+type FollowStatUserCardProps = {
   user: User;
+  stat: string;
 };
 
-const UserSuggestionCard = ({ user }: UserSuggestionCardProps) => {
+const FollowStatUserCard = ({ user, stat }: FollowStatUserCardProps) => {
   return (
     <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg hover:shadow">
       <div className="flex items-center">
@@ -23,9 +24,11 @@ const UserSuggestionCard = ({ user }: UserSuggestionCardProps) => {
           <p className="font-medium">{user.username}</p>
         </div>
       </div>
-      <FollowButton user={user} />
+      {stat === UserStat.FOLLOWING ? (
+        <FollowButton user={user} isAlreadyFollowed={true} />
+      ) : null}
     </div>
   );
 };
 
-export default UserSuggestionCard;
+export default FollowStatUserCard;

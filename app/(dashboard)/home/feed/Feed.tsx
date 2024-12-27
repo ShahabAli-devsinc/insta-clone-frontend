@@ -66,12 +66,12 @@ const Feed = () => {
   return (
     <div className="flex flex-col md:flex-row gap-2">
       {/* FeedPosts Section */}
-      <div className="w-full lg:w-[70%] border-r">
+      <div className="w-full lg:w-[60%] xl:w-[70%] border-r">
         <FeedPosts onLoadMore={loadMorePosts} />
       </div>
 
       {/* Suggestions Section */}
-      <div className="hidden lg:block md:w-[30%]">
+      <div className="hidden lg:block lg:w-[40%] xl:w-[30%] mr-2 sticky top-4 h-screen">
         <Suggestions />
       </div>
     </div>

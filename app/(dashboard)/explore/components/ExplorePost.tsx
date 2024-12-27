@@ -2,6 +2,7 @@ import { Post } from "@/types/types";
 import React, { useState } from "react";
 import PostModal from "../../profile/components/UserPostComponents/PostModal";
 import { FaComment, FaHeart } from "react-icons/fa";
+import Image from "next/image";
 
 type ExplorePostProps = {
   post: Post;
@@ -21,13 +22,16 @@ const ExplorePost = ({ post }: ExplorePostProps) => {
     <>
       <div
         key={post.id}
-        className="relative group rounded-sm overflow-hidden shadow-md break-inside-avoid"
+        className="relative group rounded-sm overflow-hidden shadow-md break-inside-avoid cursor-pointer"
         onClick={() => handleOpenModal(post)}
       >
-        <img
+        <Image
           src={post.imageUrl}
           alt={post.caption}
-          className="w-full object-cover rounded-md group-hover:scale-95 duration-300 transition-transform ease-in-out"
+          layout="responsive"
+          width={500}
+          height={900}
+          className="w-[500px] h-[900px] object-cover rounded-md group-hover:scale-95 duration-300 transition-transform ease-in-out"
         />
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 bg-black bg-opacity-50 transition-opacity">
           <div className="flex flex-col md:flex-row items-center gap-3 md:gap-6 text-white text-lg">

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Post, UserPopulated } from "@/types/types";
 
 interface ExploreState {
-  explorePosts: Post[];
+  explorePosts: Post[] | null;
   exploreUsers: UserPopulated[];
   postsPagination: { currentPage: number; totalPages: number };
   usersPagination: { currentPage: number; totalPages: number };
@@ -11,7 +11,7 @@ interface ExploreState {
 }
 
 const initialState: ExploreState = {
-  explorePosts: [],
+  explorePosts: null,
   exploreUsers: [],
   postsPagination: { currentPage: 1, totalPages: 1 },
   usersPagination: { currentPage: 1, totalPages: 1 },
@@ -31,7 +31,9 @@ const exploreSlice = createSlice({
       state.postsPagination.totalPages = Math.ceil(action.payload.total / 10); // Update pagination
     },
     addExplorePosts(state, action: PayloadAction<Post[]>) {
-      state.explorePosts = [...state.explorePosts, ...action.payload];
+      if (state.explorePosts) {
+        state.explorePosts = [...state.explorePosts, ...action.payload];
+      }
     },
     setExploreUsers(state, action: PayloadAction<UserPopulated[]>) {
       state.exploreUsers = action.payload;

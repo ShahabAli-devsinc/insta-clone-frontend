@@ -36,6 +36,8 @@ const CommentsModal = ({
                     src={comment.user.profilePicture}
                     alt={comment.user.username}
                     size="w-6 h-6"
+                    width={100}
+                    height={100}
                   />
                   <p className="font-semibold text-sm">
                     {comment.user.username}

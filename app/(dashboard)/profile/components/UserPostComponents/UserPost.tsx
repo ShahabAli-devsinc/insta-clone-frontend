@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import PostModal from "./PostModal";
-import { FaComment, FaHeart, FaTrash } from "react-icons/fa";
+import { FaComment, FaHeart } from "react-icons/fa";
 import { Post } from "@/types/types";
 import { Trash2Icon } from "lucide-react";
 import {
@@ -40,10 +40,10 @@ const UserPost = ({ post }: UserPostProps) => {
     try {
       await PostApi.delete(post.id);
       dispatch(deletePost(post.id));
-      toast("Post deleted successfully!");
+      toast.success("Post deleted successfully!");
       e.stopPropagation();
     } catch (error) {
-      toast("Failed to delete post.");
+      toast.warning("Failed to delete post.");
     }
   };
 

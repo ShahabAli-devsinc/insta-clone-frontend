@@ -1,6 +1,6 @@
-// components/PostInputField.tsx
 import React, { useRef, DragEvent, useState } from "react";
 import { Field, ErrorMessage } from "formik";
+import Image from "next/image";
 
 interface PostInputFieldProps {
   label: string;
@@ -13,6 +13,7 @@ interface PostInputFieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   preview?: string | null;
   setPreview?: (value: string | null) => void;
+  render?: ({ field }: { field: any }) => React.ReactNode; // Add this
 }
 
 const PostInputField: React.FC<PostInputFieldProps> = ({
@@ -26,6 +27,7 @@ const PostInputField: React.FC<PostInputFieldProps> = ({
   onChange,
   preview,
   setPreview,
+  render,
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
@@ -103,7 +105,7 @@ const PostInputField: React.FC<PostInputFieldProps> = ({
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           onClick={handleClick}
-          className={`flex flex-col items-center justify-center p-6 border-2 ${
+          className={`flex h-64 flex-col items-center justify-center p-6 border-2 ${
             isDragActive
               ? "border-indigo-500 bg-indigo-50"
               : "border-dashed border-gray-300"
@@ -137,9 +139,11 @@ const PostInputField: React.FC<PostInputFieldProps> = ({
             </>
           ) : (
             <div className="relative">
-              <img
+              <Image
                 src={preview}
                 alt="Preview"
+                width={16}
+                height={9}
                 className="rounded-lg object-cover h-48 w-full shadow-md"
               />
               <button

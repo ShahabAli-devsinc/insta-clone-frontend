@@ -1,4 +1,5 @@
 import axiosInstance from "@/config/baseAxios";
+import { AxiosError } from "axios";
 
 export const AuthApi = {
   login: async (credentials: { username: string; password: string }) => {
@@ -18,8 +19,8 @@ export const AuthApi = {
     try {
       const response = await axiosInstance.post("/auth/register", data);
       return response.data;
-    } catch (error) {
-      throw new Error("Registration failed, please try again");
+    } catch (error: any) {
+      throw new Error(error.response.data.message);
     }
   },
 

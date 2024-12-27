@@ -3,20 +3,19 @@ import { UserProfile } from "@/types/types";
 import EditProfileModal from "./EditProfileModal";
 import UserProfileStateItem from "./UserProfileStatItem";
 import { useSelector } from "react-redux";
-import {
-  selectFollowers,
-  selectFollowing,
-  selectUserPosts,
-} from "@/store/selector";
+import {selectFollowers, selectFollowing } from "@/store/selector";
 type UserProfileDetailsProps = {
   userProfile: UserProfile;
+  totalPosts: number;
 };
 
-const UserProfileDetails = ({ userProfile }: UserProfileDetailsProps) => {
+const UserProfileDetails = ({
+  userProfile,
+  totalPosts,
+}: UserProfileDetailsProps) => {
   const { username, bio } = userProfile;
   const following = useSelector(selectFollowing);
   const followers = useSelector(selectFollowers);
-  const posts = useSelector(selectUserPosts);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -31,7 +30,7 @@ const UserProfileDetails = ({ userProfile }: UserProfileDetailsProps) => {
         </button>
       </div>
       <div className="flex items-center justify-center gap-12 md:gap-8 p-2 px-0">
-        <UserProfileStateItem value={posts.length} label="Posts" />
+        <UserProfileStateItem value={totalPosts} label="Posts" />
         <UserProfileStateItem value={followers.length} label="Followers" />
         <UserProfileStateItem value={following.length} label="Following" />
       </div>

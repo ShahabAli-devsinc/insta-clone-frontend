@@ -1,3 +1,4 @@
+import { DEFAULT_PROFILE_PIC } from "@/constants/constants";
 import { User } from "@/types/types";
 import { X } from "lucide-react";
 import Image from "next/image";
@@ -16,11 +17,11 @@ const PostUserProfile = ({ user, onClose }: PostProfileProps) => {
           src={
             user.profilePicture?.trim() !== ""
               ? user.profilePicture
-              : "https://images.rawpixel.com/image_png_800/cHJpdmF0ZS9sci9pbWFnZXMvd2Vic2l0ZS8yMDIzLTAxL3JtNjA5LXNvbGlkaWNvbi13LTAwMi1wLnBuZw.png"
+              : DEFAULT_PROFILE_PIC
           }
           alt={`${user.username}'s profile`}
-          width={40}
-          height={40}
+          width={100}
+          height={100}
           className="rounded-[50%] h-[40px] w-[40px]"
         />
         <span className="font-semibold">{user.username}</span>

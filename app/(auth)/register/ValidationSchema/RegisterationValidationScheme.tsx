@@ -1,10 +1,9 @@
 import * as Yup from "yup";
 
-// Define the validation schema using Yup
 export const RegistrationValidationSchema = Yup.object({
   username: Yup.string()
     .min(5, "Username must be at least 5 characters long")
-    .max(20, "Username must be at most 20 characters long")
+    .max(14, "Username must be at most 15 characters long")
     .required("Username is required"),
 
   email: Yup.string()
