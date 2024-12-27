@@ -3,7 +3,7 @@ import LikeCommentBox from "@/app/(dashboard)/profile/components/UserPostCompone
 import PostCaption from "@/app/(dashboard)/profile/components/UserPostComponents/PostCaption";
 import React, { useState } from "react";
 import CommentsModal from "./CommentsModal";
-import { Post } from "@/types/types";
+import { Post } from "@/types";
 import Image from "next/image";
 
 type FeedPostProps = {
@@ -55,15 +55,17 @@ const FeedPost = ({ post }: FeedPostProps) => {
             caption={post.caption}
             feed={true}
           />
-          <div className="mt-2">
-            <button
-              onClick={openCommentsModal}
-              className="text-gray-400  hover:text-gray-600 font-light focus:outline-none"
-            >
-              View all {post.comments?.length ? post.comments?.length : ""}{" "}
-              comments
-            </button>
-          </div>
+          {post.comments?.length ? (
+            <div className="mt-2">
+              <button
+                onClick={openCommentsModal}
+                className="text-gray-400  hover:text-gray-600 font-light focus:outline-none"
+              >
+                View all {post.comments?.length ? post.comments?.length : ""}{" "}
+                comments
+              </button>
+            </div>
+          ) : null}
           {/* Comments Modal */}
           {isCommentsModalOpen ? (
             <CommentsModal

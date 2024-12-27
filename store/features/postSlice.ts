@@ -1,4 +1,4 @@
-import { Post } from "@/types/types";
+import { Post } from "@/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PostState {

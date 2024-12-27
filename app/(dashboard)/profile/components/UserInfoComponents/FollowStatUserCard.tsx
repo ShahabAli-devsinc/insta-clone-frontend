@@ -1,7 +1,7 @@
 import Avatar from "@/components/shared/Avatar";
 import FollowButton from "@/components/shared/FollowButton";
-import { DEFAULT_PROFILE_PIC } from "@/constants/constants";
-import { User, UserStat } from "@/types/types";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
+import { User, UserStat } from "@/types";
 import React from "react";
 
 type FollowStatUserCardProps = {
@@ -24,7 +24,7 @@ const FollowStatUserCard = ({ user, stat }: FollowStatUserCardProps) => {
           <p className="font-medium">{user.username}</p>
         </div>
       </div>
-      {stat === UserStat.FOLLOWING ? (
+      {stat === UserStat.Following ? (
         <FollowButton user={user} isAlreadyFollowed={true} />
       ) : null}
     </div>

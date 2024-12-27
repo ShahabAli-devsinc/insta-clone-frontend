@@ -5,13 +5,14 @@ import { setUser } from "../../../store/features/authSlice";
 import { setUserProfile } from "@/store/features/userSlice";
 import { useRouter } from "next/navigation";
 import { AuthApi } from "@/services/authApi";
-import { User } from "@/types/types";
+import { User } from "@/types";
 import Link from "next/link";
 import Button from "@/components/shared/Button";
 import InputField from "@/components/shared/InputField";
 import { toast } from "sonner";
 import { useFormik } from "formik";
 import { LoginValidationSchema } from "../login/ValidationSchema/LoginValidationSchema";
+import { ApiError } from "next/dist/server/api-utils";
 
 interface FormValues {
   username: string;
@@ -51,15 +52,11 @@ const LoginForm = () => {
         dispatch(setUserProfile(user));
         toast.success("Logged in successfully!");
         router.push("/home");
-      } catch (error: any) {
-        if (error.response?.data?.message) {
-          setErrors({ general: error.response.data.message });
-        } else {
-          setErrors({
-            general: "Login failed. Please check your credentials.",
-          });
-        }
-        toast.warning("Login failed. Please check your credentials.");
+      } catch (error) {
+        const apiError = error as ApiError;
+        const errorMessage =
+          apiError.message || "Login Failed. Please check your credentials.";
+        toast.warning(errorMessage);
       } finally {
         setSubmitting(false);
       }

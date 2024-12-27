@@ -64,7 +64,7 @@ export interface Comment {
 }
 
 export enum UserStat {
-  POST = "Posts",
-  FOLLOWING = "Following",
-  FOLLOWERS = "Followers",
+  Post = "Posts",
+  Following = "Following",
+  Followers = "Followers",
 }

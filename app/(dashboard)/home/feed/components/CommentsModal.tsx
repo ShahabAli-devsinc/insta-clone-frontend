@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import AddCommentForm from "./AddCommentForm";
-import { Comment } from "@/types/types";
+import { Comment } from "@/types";
 import Avatar from "@/components/shared/Avatar";
 import { format } from "date-fns";
 

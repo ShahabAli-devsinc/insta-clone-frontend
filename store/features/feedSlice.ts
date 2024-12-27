@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Post } from "@/types/types";
+import { Post } from "@/types";
 
 interface FeedState {
   feedPosts: Post[] | null;

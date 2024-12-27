@@ -1,4 +1,5 @@
 import axiosInstance from "@/config/baseAxios";
+import { handleApiError } from "@/helpers";
 
 export const UserApi = {
   updateProfile: async (formData: FormData) => {
@@ -10,7 +11,7 @@ export const UserApi = {
       });
       return response.data;
     } catch (error) {
-      throw new Error("Failed to update profile, please try again");
+      handleApiError(error, "Profile update failed. Try again.");
     }
   },
 
@@ -19,7 +20,7 @@ export const UserApi = {
       const response = await axiosInstance.get("/users/all");
       return response.data;
     } catch (error) {
-      throw new Error("Failed to fetch all users");
+      handleApiError(error, "Failed to fetch users.");
     }
   },
 };

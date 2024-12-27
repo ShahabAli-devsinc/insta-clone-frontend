@@ -5,7 +5,7 @@ import { selectAllPlatformUsers, selectUserProfile } from "@/store/selector";
 import Loader from "@/components/shared/Loader";
 import { followApi } from "@/services/followApi";
 import { setFollowing } from "@/store/features/followSlice";
-import { UserPopulated } from "@/types/types";
+import { UserPopulated } from "@/types";
 import { Globe2 } from "lucide-react";
 import Link from "next/link";
 
@@ -13,7 +13,9 @@ const Suggestions = () => {
   const dispatch = useDispatch();
   const users = useSelector(selectAllPlatformUsers);
   const currentUser = useSelector(selectUserProfile);
-  const [filteredUsers, setFilteredUsers] = useState<UserPopulated[]>([]);
+  const [filteredUsers, setFilteredUsers] = useState<UserPopulated[]>(
+    users || []
+  );
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const Suggestions = () => {
         )
         .slice(0, 5);
 
-      setFilteredUsers(filtered);
+      setFilteredUsers(filtered || []);
       setIsLoading(false);
     };
 

@@ -1,5 +1,5 @@
 import axiosInstance from "@/config/baseAxios";
-import { Like } from "@/types/types";
+import { Like } from "@/types";
 
 export const likeApi = {
   create: async ({
@@ -16,7 +16,7 @@ export const likeApi = {
       });
       return response.data;
     } catch (error) {
-      throw new Error("Failed to update profile, please try again");
+      throw new Error("Failed to create like, please try again");
     }
   },
 

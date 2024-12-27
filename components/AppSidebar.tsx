@@ -37,8 +37,9 @@ import { toast } from "sonner";
 import { useSelector } from "react-redux";
 import { selectUserProfile } from "@/store/selector";
 import Avatar from "./shared/Avatar";
-import { DEFAULT_PROFILE_PIC, WEBSITE_LOGO } from "@/constants/constants";
+import { DEFAULT_PROFILE_PIC, WEBSITE_LOGO } from "@/constants";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 // Menu items.
 const items = [
@@ -68,6 +69,7 @@ export function AppSidebar() {
   const router = useRouter();
   const user = useSelector(selectUserProfile);
   const { open } = useSidebar();
+  const [loading, setLoading] = useState(true);
 
   const handleLogout = async () => {
     try {
@@ -78,6 +80,12 @@ export function AppSidebar() {
       toast.warning("Failed to logout, try again!");
     }
   };
+
+  useEffect(() => {
+    if (user) {
+      setLoading(false);
+    }
+  }, [user]);
 
   return (
     <Sidebar
@@ -153,24 +161,33 @@ export function AppSidebar() {
           <Link href={"/profile"} className="">
             <SidebarMenuItem className="flex items-center gap-4 hover:bg-gray-50 rounded-md transition-all">
               <SidebarMenuButton className="h-[60px]">
-                {user.profilePicture !== "" ? (
-                  <Avatar
-                    src={user.profilePicture || DEFAULT_PROFILE_PIC}
-                    alt={user.username}
-                    size={`${open ? "h-12 w-12" : "h-6 w-6"}`}
-                    width={100}
-                    height={100}
-                  />
+                {loading ? (
+                  <>
+                    <div className="animate-pulse w-10 h-10 bg-gray-200 rounded-full"></div>
+                    <div className="flex flex-col ml-2">
+                      <div className="animate-pulse bg-gray-200 h-4 w-24 rounded"></div>{" "}
+                      <div className="animate-pulse bg-gray-200 h-3 w-16 rounded mt-1"></div>{" "}
+                    </div>
+                  </>
                 ) : (
-                  <User2 className="w-10 h-10 text-gray-500 rounded-full border border-gray-300" />
+                  <>
+                    <Avatar
+                      src={user.profilePicture || DEFAULT_PROFILE_PIC}
+                      alt={user.username}
+                      size={`${open ? "h-12 w-12" : "h-6 w-6"}`}
+                      width={100}
+                      height={100}
+                    />
+                    <div className="flex flex-col ml-2">
+                      <span className="text-sm font-medium text-gray-800">
+                        {user.username}
+                      </span>
+                      <span className="text-xs text-gray-500">
+                        View Profile
+                      </span>
+                    </div>
+                  </>
                 )}
-
-                <div className="flex flex-col ml-2">
-                  <span className="text-sm font-medium text-gray-800">
-                    {user.username}
-                  </span>
-                  <span className="text-xs text-gray-500">View Profile</span>
-                </div>
               </SidebarMenuButton>
             </SidebarMenuItem>
           </Link>

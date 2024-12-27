@@ -1,10 +1,10 @@
-import { useDebounce } from "@/helpers/helper";
+import { useDebounce } from "@/helpers";
 import { likeApi } from "@/services/likeApi";
 import { updateExplorePostAttributes } from "@/store/features/exploreSlice";
 import { updateFeedPostAttributes } from "@/store/features/feedSlice";
 import { updateUserPostAttributes } from "@/store/features/postSlice";
 import { selectUserProfile } from "@/store/selector";
-import { Comment, Like } from "@/types/types";
+import { Comment, Like } from "@/types";
 import { Heart, MessageCircle } from "lucide-react";
 import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

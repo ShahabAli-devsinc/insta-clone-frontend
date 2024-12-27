@@ -1,7 +1,7 @@
 import Avatar from "@/components/shared/Avatar";
 import FollowButton from "@/components/shared/FollowButton";
-import { DEFAULT_PROFILE_PIC } from "@/constants/constants";
-import { User } from "@/types/types";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
+import { User } from "@/types";
 import React from "react";
 
 type UserSuggestionCardProps = {

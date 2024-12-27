@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import PostModal from "./PostModal";
 import { FaComment, FaHeart } from "react-icons/fa";
-import { Post } from "@/types/types";
+import { Post } from "@/types";
 import { Trash2Icon } from "lucide-react";
 import {
   AlertDialog,
@@ -18,6 +18,7 @@ import { useDispatch } from "react-redux";
 import { PostApi } from "@/services/postApi";
 import { deletePost } from "@/store/features/postSlice";
 import { toast } from "sonner";
+
 interface UserPostProps {
   post: Post;
 }

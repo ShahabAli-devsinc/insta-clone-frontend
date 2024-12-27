@@ -1,3 +1,4 @@
+import { ApiError } from "next/dist/server/api-utils";
 import { useCallback, useRef } from "react";
 
 export function useDebounce<T extends (...args: any[]) => void>(
@@ -18,4 +19,10 @@ export function useDebounce<T extends (...args: any[]) => void>(
   );
 
   return debouncedFunction;
+}
+
+export function handleApiError(error: unknown, defaultMessage: string): void {
+  const apiError = error as { response?: { data?: ApiError } };
+  const message = apiError.response?.data?.message || defaultMessage;
+  throw new Error(message);
 }

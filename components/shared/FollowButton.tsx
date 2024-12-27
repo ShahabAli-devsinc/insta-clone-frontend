@@ -1,9 +1,9 @@
-import { useDebounce } from "@/helpers/helper";
+import { useDebounce } from "@/helpers";
 import { followApi } from "@/services/followApi";
 import { addFollowing, removeFollowing } from "@/store/features/followSlice";
 import { selectFollowing } from "@/store/selector";
 import { AppDispatch } from "@/store/store";
-import { User } from "@/types/types";
+import { User } from "@/types";
 import { Loader } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";

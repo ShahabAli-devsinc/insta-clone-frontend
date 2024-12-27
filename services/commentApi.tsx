@@ -1,5 +1,5 @@
 import axiosInstance from "@/config/baseAxios";
-import { Comment } from "@/types/types";
+import { Comment } from "@/types";
 
 export const commentApi = {
   create: async ({

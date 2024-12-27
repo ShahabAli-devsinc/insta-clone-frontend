@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import LikeCommentBox from "./LikeCommentBox";
-import { Post } from "@/types/types";
-import { useSelector } from "react-redux";
-import { selectUserProfile } from "@/store/selector";
+import { Post } from "@/types";
 import PostUserProfile from "../../../../../components/shared/PostUserProfile";
 import PostCaption from "./PostCaption";
 import CommentsModal from "@/app/(dashboard)/home/feed/components/CommentsModal";
@@ -15,7 +13,6 @@ interface PostModalProps {
 }
 
 const PostModal: React.FC<PostModalProps> = ({ post, onClose, isExplore }) => {
-  const user = useSelector(selectUserProfile);
   const [isCommentsModalOpen, setIsCommentsModalOpen] = useState(false);
   const openCommentsModal = () => setIsCommentsModalOpen(true);
   const closeCommentsModal = () => setIsCommentsModalOpen(false);
@@ -47,14 +44,17 @@ const PostModal: React.FC<PostModalProps> = ({ post, onClose, isExplore }) => {
           isExplore={isExplore || false}
         />
         {/* Render comments */}
-        <div className="mt-2">
-          <button
-            onClick={openCommentsModal}
-            className="text-blue-500 hover:text-blue-700 font-light focus:outline-none"
-          >
-            See Comments
-          </button>
-        </div>
+        {post.comments?.length ? (
+          <div className="mt-2">
+            <button
+              onClick={openCommentsModal}
+              className="text-gray-400  hover:text-gray-600 font-light focus:outline-none"
+            >
+              View all {post.comments?.length ? post.comments?.length : ""}{" "}
+              comments
+            </button>
+          </div>
+        ) : null}
 
         {/* Comments Modal */}
         {isCommentsModalOpen ? (
