@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Post, UserPopulated } from "@/types/types";
+import { Post, UserPopulated } from "@/types";
 
 interface ExploreState {
   explorePosts: Post[] | null;

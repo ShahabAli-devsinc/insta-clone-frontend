@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import { PostApi } from "@/services/postApi";
 import { appendUserPosts, setUserPosts } from "@/store/features/postSlice";
 import Loader from "@/components/shared/Loader";
-import { Post } from "@/types/types";
+import { Post } from "@/types";
 import { PlusCircle } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -37,14 +37,14 @@ const UserPosts = () => {
 
   if (posts.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center text-gray-600 mt-4">
+      <div className="flex flex-col justify-center items-center text-gray-600 mt-4">
         <Link href={"/post"}>
           <motion.div
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
-            className="w-16 h-16 mb-4 text-gray-400 hover:text-blue-500 transition-transform duration-300 ease-out"
+            className="w-20 h-20 mb-2 text-gray-400 hover:text-blue-500 transition-transform duration-300 ease-out"
           >
-            <PlusCircle />
+            <PlusCircle className="w-20 h-20" />
           </motion.div>
         </Link>
         <h2 className="text-2xl font-semibold">No Posts Yet</h2>
@@ -80,7 +80,7 @@ const UserPosts = () => {
         ))}
       </motion.div>
 
-      {posts.length < total && (
+      {posts.length < total && posts.length <= 10 ? (
         <motion.div
           className="flex justify-center mt-4"
           initial={{ opacity: 0 }}
@@ -102,7 +102,7 @@ const UserPosts = () => {
             Load More
           </motion.button>
         </motion.div>
-      )}
+      ) : null}
     </div>
   );
 };

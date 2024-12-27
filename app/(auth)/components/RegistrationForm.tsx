@@ -9,6 +9,7 @@ import Button from "@/components/shared/Button";
 import InputField from "@/components/shared/InputField";
 import { toast } from "sonner";
 import { RegistrationValidationSchema } from "@/app/(auth)/register/ValidationSchema/RegisterationValidationScheme";
+import { ApiError } from "next/dist/server/api-utils";
 
 interface FormValues {
   username: string;
@@ -23,7 +24,6 @@ const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const validationSchema = RegistrationValidationSchema;
 
-  // Initialize Formik
   const formik = useFormik<FormValues>({
     initialValues: {
       username: "",
@@ -44,9 +44,10 @@ const RegisterForm = () => {
         });
         toast.success("Registration Successful!");
         router.push("/login");
-      } catch (error: any) {
+      } catch (error) {
+        const apiError = error as ApiError;
         const errorMessage =
-          error?.message || "Registration failed. Please try again.";
+          apiError.message || "Registration failed. Please try again.";
         toast.warning(errorMessage);
       } finally {
         setLoading(false);

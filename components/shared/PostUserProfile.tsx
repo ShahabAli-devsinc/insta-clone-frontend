@@ -1,5 +1,5 @@
-import { DEFAULT_PROFILE_PIC } from "@/constants/constants";
-import { User } from "@/types/types";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
+import { User } from "@/types";
 import { X } from "lucide-react";
 import Image from "next/image";
 import React from "react";

@@ -1,5 +1,5 @@
 import FollowStatUserCard from "@/app/(dashboard)/profile/components/UserInfoComponents/FollowStatUserCard";
-import { User } from "@/types/types";
+import { User } from "@/types";
 import { X } from "lucide-react";
 import React from "react";
 
@@ -24,11 +24,15 @@ const FollowStatListModal = ({
         <div className="flex justify-between items-center">
           <h2 className="text-xl font-semibold mb-2">{stat}</h2>
         </div>
-        {followData.map((item) => (
-          <div className="mb-2" key={item.id}>
-            <FollowStatUserCard user={item} stat={stat} />
-          </div>
-        ))}
+        {followData.length ? (
+          followData.map((item) => (
+            <div className="mb-2" key={item.id}>
+              <FollowStatUserCard user={item} stat={stat} />
+            </div>
+          ))
+        ) : (
+          <div className="text-center text-gray-500">No users found.</div>
+        )}
       </div>
     </div>
   );

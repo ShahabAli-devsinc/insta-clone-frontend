@@ -1,4 +1,4 @@
-import { Post } from "@/types/types";
+import { Post } from "@/types";
 import React, { useState } from "react";
 import PostModal from "../../profile/components/UserPostComponents/PostModal";
 import { FaComment, FaHeart } from "react-icons/fa";

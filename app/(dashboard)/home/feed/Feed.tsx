@@ -13,14 +13,18 @@ import {
 import { AppDispatch, RootState } from "@/store/store";
 import { setAllPlatformUsers } from "@/store/features/userSlice";
 import { UserApi } from "@/services/userApi";
+import { toast } from "sonner";
+import { ApiError } from "next/dist/server/api-utils";
 
 const fetchPlatformUsers = async (dispatch: AppDispatch) => {
   try {
     const platformUsers = await UserApi.getAllPlatformUsers();
 
     dispatch(setAllPlatformUsers(platformUsers));
-  } catch (error: any) {
-    console.error("Error occurred while fetching users");
+  } catch (error) {
+    const apiError = error as ApiError;
+    const errorMessage = apiError.message || "Failed to fetch data.";
+    toast.error(errorMessage);
   }
 };
 
@@ -46,7 +50,7 @@ const Feed = () => {
         })
       );
     } catch (error) {
-      console.error("Failed to fetch feed posts:", error);
+      toast.error("Error while fetching feed.");
     } finally {
       dispatch(setLoading(false));
     }

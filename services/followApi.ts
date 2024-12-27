@@ -1,4 +1,5 @@
 import axiosInstance from "@/config/baseAxios";
+import { handleApiError } from "@/helpers";
 
 export const followApi = {
   fetchFollowers: async (userId: number) => {
@@ -15,7 +16,7 @@ export const followApi = {
       const response = await axiosInstance.get(`/follow/following/${userId}`);
       return response.data;
     } catch (error) {
-      throw new Error("Error occurred while fetching following.");
+      handleApiError(error, "Failed to fetch following.");
     }
   },
 

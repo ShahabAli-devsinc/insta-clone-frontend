@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { UserProfile } from "@/types/types";
+import { UserProfile } from "@/types";
 import EditProfileModal from "./EditProfileModal";
 import UserProfileStateItem from "./UserProfileStatItem";
 import { useSelector } from "react-redux";
-import {selectFollowers, selectFollowing } from "@/store/selector";
+import { selectFollowers, selectFollowing } from "@/store/selector";
 type UserProfileDetailsProps = {
   userProfile: UserProfile;
   totalPosts: number;

@@ -6,11 +6,11 @@ import * as Yup from "yup";
 import { motion } from "framer-motion";
 import PostSubmitButton from "./components/PostSubmitButton";
 import PostInputField from "./components/PostInputField";
-import { PostFormValues } from "@/types/types";
+import { PostFormValues } from "@/types";
 import { toast } from "sonner";
 import { PostApi } from "@/services/postApi";
 import Image from "next/image";
-import { WEBSITE_LOGO } from "@/constants/constants";
+import { WEBSITE_LOGO } from "@/constants";
 
 const PostSchema = Yup.object().shape({
   caption: Yup.string().required("Caption is required"),

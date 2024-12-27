@@ -15,6 +15,7 @@ import { exploreApi } from "@/services/exploreApi";
 import { useEffect, useState } from "react";
 import { RootState } from "@/store/store";
 import { useDebounce } from "@/hooks/useDebounce";
+import { toast } from "sonner";
 
 const ExploreMain = () => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ const ExploreMain = () => {
         })
       );
     } catch (error) {
-      console.error("Failed to fetch data:", error);
+      toast.error("Failed to fetch data. Try Again");
     } finally {
       dispatch(setLoading(false));
     }
@@ -82,7 +83,7 @@ const ExploreMain = () => {
           })
         );
       } catch (error) {
-        console.error("Failed to fetch more posts:", error);
+        toast.error("Failed to fetch more posts.");
       }
     }
   };
@@ -104,7 +105,7 @@ const ExploreMain = () => {
           })
         );
       } catch (error) {
-        console.error("Failed to fetch more users:", error);
+        toast.error("Failed to fetch more users.");
       }
     }
   };

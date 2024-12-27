@@ -12,6 +12,7 @@ import { selectUserProfile } from "@/store/selector";
 import { followApi } from "@/services/followApi";
 import { setFollowing } from "@/store/features/followSlice";
 import { AppDispatch } from "@/store/store";
+import { ApiError } from "next/dist/server/api-utils";
 
 const fetchData = async (userId: number, dispatch: AppDispatch) => {
   try {
@@ -22,8 +23,10 @@ const fetchData = async (userId: number, dispatch: AppDispatch) => {
 
     dispatch(setFollowing(following));
     dispatch(setExplorePosts(posts));
-  } catch (error: any) {
-    dispatch(setError(error.message));
+  } catch (error) {
+    const apiError = error as ApiError;
+    const errorMessage = apiError.message || "Failed to fetch data.";
+    dispatch(setError(errorMessage));
   } finally {
     dispatch(setLoading(false));
   }

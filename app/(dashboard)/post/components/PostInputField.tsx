@@ -13,7 +13,7 @@ interface PostInputFieldProps {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   preview?: string | null;
   setPreview?: (value: string | null) => void;
-  render?: ({ field }: { field: any }) => React.ReactNode; // Add this
+  render?: ({ field }: { field: any }) => React.ReactNode;
 }
 
 const PostInputField: React.FC<PostInputFieldProps> = ({

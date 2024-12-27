@@ -16,7 +16,7 @@ const uploadToCloudinary = (
         invalidate: true,
         resource_type: "auto",
         filename_override: fileName,
-        folder: "product-images", // any sub-folder name in your cloud
+        folder: "product-images",
         use_filename: true,
       })
       .then((result) => {
@@ -29,8 +29,6 @@ const uploadToCloudinary = (
 };
 
 export async function POST(req: NextRequest) {
-  // Your auth check here if required
-
   const formData = await req.formData();
   const file = formData.get("file") as File;
 
@@ -61,7 +59,6 @@ export async function POST(req: NextRequest) {
       );
     }
   } catch (error) {
-    console.error("Upload error:", error);
     return NextResponse.json(
       { message: "Upload failed", error },
       { status: 500 }

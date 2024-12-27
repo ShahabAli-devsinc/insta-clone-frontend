@@ -1,8 +1,8 @@
 import React from "react";
-import { UserPopulated } from "@/types/types";
+import { UserPopulated } from "@/types";
 import FollowButton from "./FollowButton";
 import Image from "next/image";
-import { DEFAULT_PROFILE_PIC } from "@/constants/constants";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
 
 const StatItem = ({ label, value }: { label: string; value: number }) => (
   <div className="text-center">

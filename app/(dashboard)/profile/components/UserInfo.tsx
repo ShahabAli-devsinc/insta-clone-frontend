@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { User, UserProfile, UserStat } from "@/types/types";
+import { User, UserProfile, UserStat } from "@/types";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { DEFAULT_PROFILE_PIC } from "@/constants/constants";
+import { DEFAULT_PROFILE_PIC } from "@/constants";
 import EditProfileModal from "./EditProfileModal";
 import { selectFollowers, selectFollowing } from "@/store/selector";
 import FollowStatListModal from "@/app/(dashboard)/profile/components/UserInfoComponents/FollowStatListModal";
@@ -50,7 +50,7 @@ const UserInfo = ({ userProfile }: UserInfoProps) => {
   const [followStatModalData, setFollowStatModalData] = useState<User[]>([]);
   const [statIdentifier, setStatIdentifier] = useState<string>("");
   const openFollowStatModal = (stat: string) => {
-    setFollowStatModalData(stat === UserStat.FOLLOWING ? following : followers);
+    setFollowStatModalData(stat === UserStat.Following ? following : followers);
     setStatIdentifier(stat);
     setIsFollowStatModalOpen(true);
   };
@@ -94,14 +94,14 @@ const UserInfo = ({ userProfile }: UserInfoProps) => {
             </div>
 
             <ul className="hidden md:flex space-x-8 mb-4">
-              <StatItem label={UserStat.POST} value={totalPosts} />
+              <StatItem label={UserStat.Post} value={totalPosts} />
               <StatItem
-                label={UserStat.FOLLOWERS}
+                label={UserStat.Followers}
                 value={followers.length}
                 onOpen={openFollowStatModal}
               />
               <StatItem
-                label={UserStat.FOLLOWING}
+                label={UserStat.Following}
                 value={following.length}
                 onOpen={openFollowStatModal}
               />

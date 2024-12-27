@@ -1,11 +1,12 @@
 import React, { useCallback, useState } from "react";
 import ProfileImageUploader from "./ProfileImageUploader";
-import { DEFAULT_PROFILE_PIC, MAX_BIO_LENGTH } from "@/constants/constants";
-import { UserProfile } from "@/types/types";
+import { DEFAULT_PROFILE_PIC, MAX_BIO_LENGTH } from "@/constants";
+import { UserProfile } from "@/types";
 import { useDispatch } from "react-redux";
 import { updateUserProfile } from "@/store/features/userSlice";
 import { UserApi } from "@/services/userApi";
 import { toast } from "sonner";
+import { ApiError } from "next/dist/server/api-utils";
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -42,6 +43,16 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
   }, []);
 
   const handleSave = async () => {
+    const hasChanges =
+      newUsername !== userProfile.username ||
+      newBio !== userProfile.bio ||
+      newProfileImageFile !== null;
+
+    // If no changes, close the modal and return
+    if (!hasChanges) {
+      onClose();
+      return;
+    }
     if (!validateUsername(newUsername)) {
       return;
     }
@@ -70,9 +81,12 @@ const EditProfileModal: React.FC<EditProfileModalProps> = ({
 
       onClose();
       toast.success("Profile updated successfully!");
-    } catch (err: any) {
-      console.error("Update profile error:", err);
-      toast.warning("Failed to update profile. Please try again.");
+    } catch (error) {
+      const apiError = error as ApiError;
+      const errorMessage =
+        apiError.message || "Profile update failed. Please try again.";
+      toast.warning(errorMessage);
+      setNewUsername(username);
     } finally {
       setIsSaving(false);
     }
